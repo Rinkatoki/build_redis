@@ -13,6 +13,11 @@ typedef struct entry
     Entry *next;
 }Entry;
 
+
+Database db_create(void);
+
+void free_node(Database);
+
 int db_set(...);
 
 int db_del(...);
