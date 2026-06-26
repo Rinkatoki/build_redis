@@ -16,8 +16,12 @@ typedef struct entry
 
 Database db_create(void);
 
+void db_destroy(Database *db);
+
 void free_node(Database);
 
-int db_set(...);
+Entry *create_node(const char *key, const char *value);
 
-int db_del(...);
+// int db_set(...);
+
+// int db_del(...);
