@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "database.h"
 
 Database db_create(void){
@@ -31,14 +33,25 @@ void db_destroy(Database *db){
   db->key_count=0;
 }
 
-Entry *create_node(const char *key, const char *value){
+Entry *create_node(const char *key,const char *value){
   Entry *node = malloc(sizeof(Entry));
   if (node==NULL){
     return NULL;
   }
-  node->key=(char *)key;
-  node->value=(char*)value;
+  
+  node->key=strdup(key);
+  if((node->key)==NULL){
+    free(node);
+    return NULL;
+  }
+
+  node->value=strdup(value);
+  if(node->value==NULL){
+    free(node->key);
+    free(node);
+    return NULL;
+  }
+
   node->next=NULL;
   return node;
-
 }
