@@ -3,10 +3,10 @@
 #include <string.h>
 #include "database.h"
 
-Database *db_create(void){
-  Database *db;
-  db->head=NULL;
-  db->key_count=0;
+Database db_create(void){
+  Database db;
+  db.head=NULL;
+  db.key_count=0;
   return db;
 }
 
@@ -89,4 +89,41 @@ int db_set(Database *db,const char * key,const char *value){
   db->head=node;
   db->key_count+=1;
   return 1;
+}
+
+char * db_get(Database *db,const char * key){
+  Entry *current= db->head;
+  while(current!=NULL){
+    if(strcmp(current->key,key)==0){
+      return current->value;
+    }
+    current=current->next;
+  }
+  return NULL;
+}
+
+int db_exists(Database * db,char * key){
+  if(db!=NULL){
+    return 1;
+  }
+  else{
+    return 0;
+  }
+}
+
+size_t db_count(Database *db){
+  return db->key_count;
+}
+
+
+void db_print(const Database *db){
+    if(db==NULL){
+      return;
+    }
+    Entry * current=db->head;
+    while(current!=NULL){
+      printf("%s\n",current->value);
+      current=current->next;
+    }
+
 }
