@@ -127,3 +127,31 @@ void db_print(const Database *db){
     }
 
 }
+
+void find_with_previous(Database *db,char *key,Entry ** previous,Entry ** current){
+  *previous=NULL;
+  *current= db->head;
+  while(current!=NULL){
+    
+    if((*current)->key==key){
+      break;
+    }
+    *previous=*current;
+    *current=(*current)->next;
+  }
+}
+
+void db_delete(Database *db,const char *key){
+  Entry *curr;
+  Entry *prev;
+  find_with_previous(db,key,prev,curr);
+  while(curr!=NULL){
+    if(prev==NULL){
+      db->head=curr->next;
+    }
+    else{
+      prev->next=curr->next;
+    }
+    free(curr);
+  }
+}

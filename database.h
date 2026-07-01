@@ -32,5 +32,6 @@ size_t db_count(Database * db);
 
 void db_print(Database *db);
 
-// int db_del(...);
-// Entry * find_node(Database *db,char *key);
+void find_with_previous(Database *db,char * key);
+
+void db_delete(char * key);
